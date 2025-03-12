@@ -113,7 +113,7 @@ public class MemberDAO {
 						rset.getInt("MEMBERNO"),
 						rset.getString("MEMBERID"),
 						rset.getString("MEMBERPW"),
-						rset.getString("GENDER").charAt(0), 
+						rset.getString("GENDER") != null ? rset.getString("GENDER").charAt(0) : 'A', 
 						rset.getInt("AGE"),
 						rset.getString("EMAIL"),
 						rset.getString("ADDRESS"),
