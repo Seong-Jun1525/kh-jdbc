@@ -27,7 +27,7 @@ public class Member {
 	private int memberNo;
 	private String memberId;
 	private String memberPw;
-	private char gender;
+	private String gender;
 	private int age;
 	private String email;
 	private String address;
@@ -37,7 +37,7 @@ public class Member {
 
 	public Member() {}
 	
-	public Member(String id, String pw, char gender, int age) {
+	public Member(String id, String pw, String gender, int age) {
 		super();
 		this.memberId = id;
 		this.memberPw = pw;
@@ -45,7 +45,7 @@ public class Member {
 		this.age = age;
 	}
 	
-	public Member(String id, String pw, char gender, String email, String phone, String addr, String hobby) {
+	public Member(String id, String pw, String gender, String email, String phone, String addr, String hobby) {
 		super();
 		this.memberId = id;
 		this.memberPw = pw;
@@ -56,7 +56,7 @@ public class Member {
 		this.hobby = hobby;
 	}
 
-	public Member(int memberNo, String memberId, String memberPw, char gender, int age, String email, String address,
+	public Member(int memberNo, String memberId, String memberPw, String gender, int age, String email, String address,
 			String phone, String hobby, Date enrollDate) {
 		super();
 		this.memberNo = memberNo;
@@ -99,11 +99,11 @@ public class Member {
 		this.memberPw = memberPw;
 	}
 
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 

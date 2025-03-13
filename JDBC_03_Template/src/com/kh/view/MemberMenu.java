@@ -99,7 +99,7 @@ public class MemberMenu {
 		System.out.print("- 변경할 취미 : ");
 		String hobby = sc.nextLine();
 		
-		mc.updateMember(id, pw, gender, email, phone, addr, hobby);
+		mc.updateMember(id, pw, gender+"", email, phone, addr, hobby);
 	}
 
 	private void searchByIdMenu() {
@@ -146,7 +146,7 @@ public class MemberMenu {
 		sc.nextLine();
 		
 		// 회원 추가 요청 --> Controller 객체에게 id, pw, gender, age 변수의 값 전달
-		mc.insertMember(id, pw, gender, age);
+		mc.insertMember(id, pw, gender+"", age);
 	}
 	
 	/**
