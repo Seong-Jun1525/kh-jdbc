@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Query...</comment>
+	<!-- 
+		추후 필요한 쿼리문이 있다면 이런식으로 각 테이블 별로 xml 파일을 만들어서 작성한 후에
+		필요한 곳에서 꺼내서 사용하는 식으로 작업한다
+	 -->
+	 
+	<!-- 회원 데이터 추가 -->
+	<entry key="insertMember">INSERT INTO MEMBER VALUES (SEQ_MNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT)</entry>
+	
+	<!-- 전체 회원 목록 조회 -->
+	<entry key="selectAll">SELECT * FROM MEMBER ORDER BY ENROLLDATE DESC</entry>
+	
+	<!-- 키워드를 포함한 정보 조회 -->
+	<entry key="selectKeyword">SELECT * FROM MEMBER WHERE MEMBERID LIKE ? ORDER BY ENROLLDATE DESC</entry>
+	
+	<!-- 특정 회원 조회 -->
+	<entry key="searchMember">SELECT * FROM MEMBER WHERE MEMBERID = ?</entry>
+	
+	<!-- 특정 회원 정보 수정 -->
+	<entry key="updateMember">UPDATE MEMBER SET MEMBERPW = ?, GENDER = ?, EMAIL = ?, PHONE = ?, ADDRESS = ?, HOBBY = ? WHERE MEMBERID = ?</entry>
+	
+	<!-- 특정 회원 정보 삭제 -->
+	<entry key="deleteMember">DELETE FROM MEMBER WHERE MEMBERID = ?</entry>
+	
+	<!-- 회원 정보 전체 삭제 -->
+	<entry key="deleteMemberAll">DELETE FROM MEMBER</entry>
+</properties>
