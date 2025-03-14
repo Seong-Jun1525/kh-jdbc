@@ -31,6 +31,9 @@ public class MemberDAO {
 		int result = 0;
 		
 		String sql = "INSERT INTO MEMBER VALUES (SEQ_MNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT)";
+		/**
+		 * Statement와 PreparedStatement의 차이는 SQL 쿼리문이 완성 되어 있는지 미완성되어 있는지의 차이다
+		 */
 		
 		System.out.println("-".repeat(10));
 		System.out.println(sql);

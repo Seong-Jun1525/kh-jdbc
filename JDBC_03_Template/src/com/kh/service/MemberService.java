@@ -67,12 +67,30 @@ public class MemberService {
 		return result;
 	}
 
-	public int deleteMember(Member m) {
+	public int deleteMember(String id) {
 		int result = 0;
 		
 		conn = JDBCTemplate.getConnection();
 		
-		result = new MemberDAO().deleteMember(conn, m);
+		result = new MemberDAO().deleteMember(conn, id);
+		
+		// 3) 실행할 SQL문 확인 => (DML, INSERT) => 트랜잭션 처리
+		if(result > 0) JDBCTemplate.commit(conn);
+		else JDBCTemplate.rollback(conn);
+		
+		// 4) Connection 객체 반납
+		JDBCTemplate.close(conn);
+		
+		// 5) 결과 반환
+		return result;
+	}
+	
+	public int deleteMemberAll() {
+		int result = 0;
+		
+		conn = JDBCTemplate.getConnection();
+		
+		result = new MemberDAO().deleteMemberAll(conn);
 		
 		// 3) 실행할 SQL문 확인 => (DML, INSERT) => 트랜잭션 처리
 		if(result > 0) JDBCTemplate.commit(conn);
@@ -101,11 +119,19 @@ public class MemberService {
 		
 		ArrayList<Member> list = new MemberDAO().selectAllMember(conn);
 		
-		
+		JDBCTemplate.close(conn);
 		
 		return list;
 	}
 
-	
+	public ArrayList<Member> searchByKeyword(String keyword) {
+		conn = JDBCTemplate.getConnection();
+		
+		ArrayList<Member> kList = new MemberDAO().selectKeyword(conn, keyword);
+		
+		JDBCTemplate.close(conn);
+		
+		return kList;
+	}
 	
 }

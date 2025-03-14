@@ -55,6 +55,17 @@ public class MemberController {
 		if(m == null) new MemberMenu().displayNoData();
 		else new MemberMenu().displayMember(m);
 	}
+	
+	/**
+	 * 전달된 키워드가 포함된 회원 아이디 목록 조회
+	 * @param keyword 키워드
+	 */
+	public void searchKeyword(String keyword) {
+		ArrayList<Member> mList = mService.searchByKeyword(keyword); 
+		
+		if(mList.isEmpty()) new MemberMenu().displayNoData();
+		else new MemberMenu().displayAllMembers(mList);
+	}
 
 	/**
 	 * 회원ID를 기준으로 특정 정보 수정 
@@ -82,9 +93,14 @@ public class MemberController {
 	 * @param id
 	 */
 	public void deleteMember(String id) {
-		Member m = new Member(id);
+		int result = mService.deleteMember(id);
 		
-		int result = mService.deleteMember(m);
+		if(result > 0) new MemberMenu().displaySuccess("회원 정보 삭제 성공!!");
+		else new MemberMenu().displayFailed("회원 정보 삭제 실패!!");
+	}
+
+	public void deleteMemberAll() {
+		int result = mService.deleteMemberAll();
 		
 		if(result > 0) new MemberMenu().displaySuccess("회원 정보 삭제 성공!!");
 		else new MemberMenu().displayFailed("회원 정보 삭제 실패!!");

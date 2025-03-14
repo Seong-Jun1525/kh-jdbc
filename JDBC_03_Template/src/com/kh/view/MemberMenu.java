@@ -28,8 +28,10 @@ public class MemberMenu {
 			System.out.println("1. 회원 추가");
 			System.out.println("2. 전체 회원 조회");
 			System.out.println("3. 회원 아이디로 검색");
-			System.out.println("4. 회원 정보 수정");
-			System.out.println("5. 회원 탈퇴");
+			System.out.println("4. 키워드가 포함된 아이디 검색");
+			System.out.println("5. 회원 정보 수정");
+			System.out.println("6. 회원 탈퇴");
+			System.out.println("7. 회원 전체 삭제");
 			System.out.println("9. 종료");
 			
 			System.out.print(">> 메뉴 번호 : ");
@@ -50,12 +52,20 @@ public class MemberMenu {
 				searchByIdMenu();
 				break;
 			case 4:
+				// 입력받은 아이디가 포함된 모든 회원 데이터 검색 기능
+				searchByKeywordMenu();
+				break;
+			case 5:
 				// 수정 기능
 				updateMemberMenu();
 				break;
-			case 5:
+			case 6:
 				// 탈퇴 기능
 				deleteMemberMenu();
+				break;
+			case 7:
+				// 회원데이터 전체 삭제
+				deleteMemberAllMenu();
 				break;
 			case 9:
 				System.out.println("프로그램이 종료됩니다.");
@@ -64,6 +74,21 @@ public class MemberMenu {
 		}
 	}
 	
+	private void deleteMemberAllMenu() {
+		System.out.print("정말 전체 삭제 하시겠습니까? (Y/N) : ");
+		char answer = sc.nextLine().toLowerCase().charAt(0);
+		
+		if(answer == 'y') mc.deleteMemberAll();
+		else System.out.println("취소합니다.");
+	}
+
+	private void searchByKeywordMenu() {
+		System.out.print("조회할 아이디 입력 : ");
+		String keyword = sc.nextLine();
+		
+		mc.searchKeyword(keyword);
+	}
+
 	/**
 	 * 회원 아이디를 기준으로 회원 정보를 삭제
 	 */
@@ -100,6 +125,23 @@ public class MemberMenu {
 		String hobby = sc.nextLine();
 		
 		mc.updateMember(id, pw, gender+"", email, phone, addr, hobby);
+	}
+	
+	/** 참고하기!
+	 * 성별을 입력받는 메소드
+	 * @return 입력된 성별 정보
+	 */
+	private String inputGender() {
+		System.out.print("- 변경할 성별(M/F) : ");
+		String gender = sc.nextLine();
+		
+		while(!gender.equalsIgnoreCase("M") && !gender.equalsIgnoreCase("F")) {
+			System.out.println("※ 성별은 M 또는 F만 입력 가능합니다. 다시 입력해주세요. ※");
+			System.out.print("- 변경할 성별(M/F) : ");
+			gender = sc.nextLine();
+		}
+		
+		return gender.toUpperCase();
 	}
 
 	private void searchByIdMenu() {
