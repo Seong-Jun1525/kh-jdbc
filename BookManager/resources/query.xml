@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>GAME QUERY</comment>
+
+	<entry key="selectAllBook">
+		SELECT * FROM BOOK ORDER BY BOOK_ID
+	</entry>
+	<entry key="selectBookByTitle">
+		SELECT * FROM BOOK WHERE TITLE LIKE ?
+	</entry>
+	<entry key="deleteBookById">
+		DELETE FROM BOOK WHERE BOOK_ID = ?
+	</entry>
+	<entry key="updateBook">
+		UPDATE BOOK 
+			SET TITLE = ?, AUTHOR = ?, PUBLISHER = ?, PRICE = ?
+		 WHERE BOOK_ID = ?
+	</entry>
+	<entry key="insertBook">
+		INSERT INTO BOOK VALUES (SEQ_BOOKID.NEXTVAL, ?, ?, ?, ?)
+	</entry>
+</properties>
