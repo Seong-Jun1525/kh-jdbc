@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>GAME QUERY</comment>
+
+	<entry key="selectAll">
+		SELECT *
+		FROM GAME
+	</entry>
+	<entry key="searchByTitle">
+		SELECT * FROM GAME WHERE TITLE LIKE '%'||?||'%'
+	</entry>
+	<entry key="deleteGame">
+		DELETE FROM GAME WHERE GAME_ID = ?
+	</entry>
+	<entry key="updateGame">
+		UPDATE GAME 
+			SET TITLE = ?, GENRE = ?, PLATFORM = ?, RELEASE_DATE = ?
+		 WHERE GAME_ID = ?
+	</entry>
+	<entry key="insertGame">
+		INSERT INTO GAME values 
+		('g_' || SEQ_GAMEID.NEXTVAL
+					, ?
+					, ?
+					, ?
+					, ?)
+	</entry>
+</properties>
