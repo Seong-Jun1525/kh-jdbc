@@ -1,0 +1,49 @@
+1. PreparedStatement와 Statement의 차이는 sql문이 완성되었는지 아닌지 차이인데
+소스 코드에서는 PreparedStatement를 사용하였으므로 Connection 객체로 prepareStatement 메서드에 sql문을 매개변수로 주고 호출 후
+sql문 실행 전에 setXXX() 메서드를 사용해서 sql문의 ? 부분을 완성해줘야 한다.
+하지만 ShopDAO 클래스에서는 해당 부분이 누락되어 있다. 
+
+2. 1번의 문제점과 이어지는 내용으로 sql문을 실행하는 코드가 누락되어 있다.
+
+3. ResultSet 객체의 getXXX() 메서드를 사용할 때 컬럼명을 매개변수로 하여 해당 컬럼의 값을
+가져올 수 있다. 하지만 소스코드에서 성별의 값을 가져올 때 컬럼명이 아닌 테이블 정의서의 설명(COMMENT) 값으로 가져오려고 하고 있으므로
+해당 코드는 잘못작성되었다.
+
+4. 해당 코드에서 PreparedStatement 객체와 ResultSet 객체를 사용한 후에
+자원을 반납하는 코드가 누락되어 있다.
+
+해결방안
+public class ShopDAO {
+	private PreparedStatement pstmt = null;
+	private ResultSet rs = null;
+
+	public ShopMember selectMember(Connection conn, String memberId) {
+		ShopMember sm = null;
+		
+		try {
+			String sql = "SELECT * FROM SHOW_MEMBER WHERE MEMBER_ID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);	// <= 추가한 부분으로 쿼리문의 ? 부분을 memberId 값으로 설정 
+
+			rs = pstmt.executeQuery(); // <= 추가한 부분으로 쿼리문 실행
+
+			if(rs.next()) {
+				String id = rs.getString("MEMBER_ID");
+				String pw = rs.getString("MEMBER_PW");
+				String phone = rs.getString("PHONE");
+				String gender = rs.getString("GENDER"); // <= 수정한 부분으로 테이블에 정의된 컬럼명으로 변경
+
+				sm = new ShopMember(id, pw, phone, gender);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 추가한 부분으로 JDBCTemplate 클래스에 작성된 close 메서드를 사용하여 자원반납
+			// 반납 순서는 객체 생성의 역순으로 반납
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+		}
+
+		return sm;
+	}
+}
